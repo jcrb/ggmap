@@ -1,0 +1,104 @@
+ggMAP
+========================================================
+
+Creation de cartes avec googlemap et openstreetmap
+
+source: http://www.mollietaylor.com/search/label/get_openstreetmap
+==================================================================
+
+Trace de jogging surimpose sur un fond de carte
+
+```{r elwin}
+gps <- read.csv("elwin.csv",header = TRUE)
+head(gps)
+
+library(ggmap)
+
+mapImageData <- get_map(location = c(lon = mean(gps$Longitude),
+lat = 33.824),
+color = "color", # or bw
+source = "google",
+maptype = "satellite",
+# api_key = "your_api_key", # only needed for source = "cloudmade"
+zoom = 17)
+ 
+pathcolor <- "#F8971F"
+
+ggmap(mapImageData,
+extent = "device", # "panel" keeps in axes, etc.
+ylab = "Latitude",
+xlab = "Longitude",
+legend = "right") +
+geom_path(aes(x = Longitude, # path outline
+y = Latitude),
+data = gps,
+colour = "black",
+size = 2) +
+geom_path(aes(x = Longitude, # path
+y = Latitude),
+colour = pathcolor,
+data = gps,
+size = 1.4) # +
+# labs(x = "Longitude",
+# y = "Latitude") # if you do extent = "panel"
+
+mapImageData <- get_map(location = c(lon = mean(gps$Longitude),lat = 33.824),
+color = "color", # or bw
+source = "osm",
+maptype = "",
+zoom = 17)
+```
+
+http://tuxette.nathalievilla.org/?p=1152&lang=en
+================================================
+
+```{r}
+conf.map = openmap(c(60,-90),c(-45,45),type="osm")
+coord.conferences = rbind(c(-16.5,28.4),c(3.2,51.2),c(-70.6,-33.4),c(4.8,45.7))
+library("proj4", lib.loc="/home/bart-rescue/R/x86_64-redhat-linux-gnu-library/3.0")
+
+proj4string(coord.conferences) = CRS("+proj=longlat +ellps=WGS84")
+
+plot(conf.map,raster=TRUE)
+```
+
+Package Openstreetmap
+=====================
+
+http://www.r-bloggers.com/the-openstreetmap-package-opens-up/
+http://blog.fellstat.com/?p=356
+http://gis.stackexchange.com/questions/74667/r-openproj-to-plot-in-open-street-map-in-a-different-projection
+
+
+Package Osmar
+===============
+
+http://osmar.r-forge.r-project.org/
+http://journal.r-project.org/archive/2013-1/eugster-schlesinger.pdf
+http://thebiobucket.blogspot.ca/2012/12/convert-openstreetmap-objects-to-kml.html
+
+OSM Scientific tools
+====================
+
+http://wiki.openstreetmap.org/wiki/OSM_Scientific_Tools
+http://www.r-bloggers.com/open-street-maps/
+
+http://www.surefoss.org/visualisation/visualizing-gis-data-with-r-and-open-street-map/
+
+http://rstudio-pubs-static.s3.amazonaws.com/10038_a434a1032def4e1880ea3f35b48c9923.html
+
+http://www.gislounge.com/making-maps-with-r/
+
+http://rpsychologist.com/parsing-data-from-a-text-file-and-plotting-where-people-live-using-ggplot2-and-openstreetmaps/
+
+https://www.cypherpunk.at/files/2012/05/linuxw_pres.pdf
+
+superdoc
+---------
+http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/index.html
+
+ggMap
+=====
+
+http://stackoverflow.com/questions/11056738/plotting-points-from-a-data-frame-using-openstreetmap
+
