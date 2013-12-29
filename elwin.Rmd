@@ -102,3 +102,19 @@ ggMap
 
 http://stackoverflow.com/questions/11056738/plotting-points-from-a-data-frame-using-openstreetmap
 
+readHTMLTable
+=============
+
+Lit des tableaux dans une page HTML. Necessite la librairie XML.  
+
+table3 <- readHTMLTable("http://en.wikipedia.org/wiki/Regions_of_France")
+
+table 3 = list of 7 => IL Y A 7 tableau dans la page qur R renvoie sous forme de list. On peut recuperer directement un tableau sous forme de matrice avec:  
+
+table3.1 <- readHTMLTable("http://en.wikipedia.org/wiki/Regions_of_France")[[2]]
+
+write.csv(table3.1, "region.csv")
+
+exemple: http://alandgraf.blogspot.ca/2013/08/downloading-and-analyzing-cd1025s.html
+
+
